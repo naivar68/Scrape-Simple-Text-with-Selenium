@@ -1,5 +1,9 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+
+service = Service('chromedriver')
+
+
 
 
 
@@ -13,13 +17,13 @@ def get_driver():
     options.add_argument("disable-link-features=AutomationControlled")
   
     # Specify the path to the chromedriver executable
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get("http://automated.pythonanywhere.com")
     return driver
 
 def main():
     driver = get_driver()
-    element = driver.find_element(By.XPATH, "/html/body/div[1]/div/h1[1]")
-    return element
+    element = driver.find_element(by="xpath", value="/html/body/div[1]/div/h1[1]")
+    return element.text
 
 print(main())
